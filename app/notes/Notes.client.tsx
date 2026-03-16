@@ -3,7 +3,7 @@
 import css from "./NotesPage.module.css";
 import NoteList from "@/components/NoteList/NoteList";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import { fetchNotes } from "@/lib/api";
+import { fetchNotes } from "@/lib/api/notes";
 import { useState } from "react";
 import Pagination from "@/components/Pagination/Pagination";
 import SearchBox from "@/components/SearchBox/SearchBox";
@@ -71,7 +71,7 @@ export default function NotesClient({ initialPage, initialSearch }: Props) {
       {notes.length > 0 && <NoteList notes={notes} />}
 
       {isModalOpen && (
-        <Modal onClose={closeModal}>
+        <Modal>
           <NoteForm onClose={closeModal} />
         </Modal>
       )}
