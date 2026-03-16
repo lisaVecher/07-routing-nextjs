@@ -8,7 +8,7 @@ interface ErrorProps {
 export default function Error({ error, reset }: ErrorProps) {
   return (
     <div>
-      <p>Something went wrong.</p>
+      <p>Something went wrong: {error.message}</p>
       <button onClick={reset}>Try again</button>
     </div>
   );
