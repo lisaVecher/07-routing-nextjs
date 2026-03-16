@@ -10,13 +10,19 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import { useDebouncedCallback } from "use-debounce";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
+import type { NoteTag } from "@/types/note";
 
-type Props = {
+interface NotesClientProps {
   initialPage: number;
   initialSearch: string;
-};
+  tag?: NoteTag;
+}
 
-export default function NotesClient({ initialPage, initialSearch }: Props) {
+export default function NotesClient({
+  initialPage,
+  initialSearch,
+  tag,
+}: NotesClientProps) {
   const [page, setPage] = useState(initialPage);
   const [searchInput, setSearchInput] = useState(initialSearch);
   const [search, setSearch] = useState(initialSearch);
@@ -42,8 +48,8 @@ export default function NotesClient({ initialPage, initialSearch }: Props) {
   }
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["notes", page, search],
-    queryFn: () => fetchNotes(page, search),
+    queryKey: ["notes", page, search, tag],
+    queryFn: () => fetchNotes(page, search, tag),
     placeholderData: keepPreviousData,
   });
 
@@ -71,7 +77,7 @@ export default function NotesClient({ initialPage, initialSearch }: Props) {
       {notes.length > 0 && <NoteList notes={notes} />}
 
       {isModalOpen && (
-        <Modal>
+        <Modal onClose={closeModal}>
           <NoteForm onClose={closeModal} />
         </Modal>
       )}

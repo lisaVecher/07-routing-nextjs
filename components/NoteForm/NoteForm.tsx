@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import type { NoteTag } from "../../types/note";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createNote } from "@/lib/api/notes";
+import { createNote } from "@/lib/api";
 
 interface NoteFormProps {
   onClose: () => void;
